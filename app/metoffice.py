@@ -2,7 +2,7 @@ import requests
 import bs4
 import json 
 import time 
-from util.helper import city_codes, cities_without_trchar, cities
+from util.helper import city_codes, cities
 
 url_metoffice = "https://www.metoffice.gov.uk/" 
 # url_weathercom = "https://weather.com/tr-TR"
@@ -10,7 +10,7 @@ url_metoffice = "https://www.metoffice.gov.uk/"
 
 def get_city_ref():
     """
-    İlk kaynak için şehir ve referans bilgilerini alır.
+        İlk kaynak için şehir ve referans bilgilerini alır.
     """
     obj = {}
     
@@ -41,8 +41,8 @@ def get_city_ref():
 def detail_city(obj):
     
     """
-    Bu fonksiyon şehirlerin 1 haftalık hava durumunu bulur ve kaydeder.
-    obj : şehir ismi(obj.key) ve linki(obj.value) içeren sözlük
+        Bu fonksiyon şehirlerin 1 haftalık hava durumunu bulur ve kaydeder.
+        obj : şehir ismi(obj.key) ve linki(obj.value) içeren sözlük
     """
 
     # şehirlerin hava durumunu tutacağımız sözlük
@@ -92,13 +92,21 @@ def detail_city(obj):
     return result
     
 def save_data(data):
-    json_veri = json.dumps(data, ensure_ascii=False, indent=4)
-    with open('result_data/hava_durumu_metoffice.json', 'w', encoding='utf-8') as dosya:
-        dosya.write(json_veri)    
+    """ 
+        Bu fonksiyon verilen datayı json olarak kaydeder.
+    """
+    json_data = json.dumps(data, ensure_ascii=False, indent=4)
+    with open('result_data/hava_durumu_metoffice.json', 'w', encoding='utf-8') as file:
+        file.write(json_data)    
 
 def run_metoffice():
+    """ 
+        metoffice.com sitesi için çalıştırılacak fonksiyon
+    """
     obj = get_city_ref()
     data = detail_city(obj)
     save_data(data)
-
+    
+    print("metoffice.com bitti")
+    # return data
 

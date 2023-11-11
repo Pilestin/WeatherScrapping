@@ -26,12 +26,22 @@ def city_codes():
     
     return obj
 
-def cities_without_trchar():
+def cities_with_trchar():
     """
-    Bu fonksiyon Türkiye'nin illerini türkçe karakter olmadan döndürür.
+    Bu fonksiyon Türkiye'nin illerini Türkçe karakterleri ile birlikte ve ilk harfi büyük olarak döndürür.
+    weather.com sitesindeki şehirlerin isimleri bu şekildedir.
     """    
-    
-    plakalar = {}
+    tr_city = ["Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin", "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir", "Kars", "Kastamonu", "Kayseri", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Kahramanmaraş", "Mardin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van", "Yozgat", "Zonguldak", "Aksaray", "Bayburt", "Karaman", "Kırıkkale", "Batman", "Şırnak", "Bartın", "Ardahan", "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"]
     # iller listesi https://turzifer.com/web/turkiye-il-listesi/ adresinden alındı
+    return tr_city
     
-# plakalar()
+    
+def util_weathercom():
+    """ 
+    Bu fonksiyon yukarıdaki fonksiyondan aldığı listeyi weather.com sitesinde arama formatına uyarlar 
+    ex : Eskişehir ->  Eskişehir, Eskişehir
+    """
+    format_cities = [f"{i}, {i}" for i in cities_with_trchar() ]
+    
+    return format_cities
+

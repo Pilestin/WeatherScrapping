@@ -10,7 +10,9 @@ locale.setlocale(locale.LC_TIME, 'tr_TR')
 url_havadurumux = "https://www.havadurumux.net" 
 
 def get_weather():
-    
+    """ 
+        Util içerisinden alınan şehir listesinin her ögesi için url düzenleyip şehirlere göre hava durumunu alır.
+    """
     result = {}
     
     # her bir şehir için işlem yapacağız
@@ -58,11 +60,20 @@ def get_weather():
     return result    
         
 def save_data(data):
+    """ 
+        Bu fonksiyon verilen datayı json olarak kaydeder.
+    """
     json_veri = json.dumps(data, ensure_ascii=False, indent=4)
     with open('result_data/hava_durumu_xnet.json', 'w', encoding='utf-8') as dosya:
         dosya.write(json_veri) 
 
 
 def run_havadurumux():
+    """ 
+        havadurumux.com sitesi için çalıştırılacak fonksiyon
+    """
     data = get_weather()
     save_data(data)
+    
+    print("havadurumux bitti")
+    # return data
