@@ -1,7 +1,6 @@
 import requests
 import bs4
 import json
-import time
 from datetime import datetime , timedelta
 from util.helper import util_weathercom
 
@@ -88,12 +87,8 @@ def get_weather(links):
     """
     data = {}
     for num, i in enumerate(links, 1):
-        
-        count = 0
-        
-        
+    
         print(num, i , links[i])
-        
         # yeni url'imiz şehir kodu ile birlikte oluşacak
         url = url_weathercom + "/weather/tenday/l/" + links[i]
         response = requests.get(url)
@@ -102,22 +97,32 @@ def get_weather(links):
         rows = soup.find_all("div", class_="DetailsSummary--temperature--1kVVp")
 
         # site içerisinde gün bilgisi uygun değil, bu yüzden el ile yapıldı
-        day = datetime.now()
-        
+        today = datetime.now()
+        today_number = today.day
         # bir haftalık veriyi tutacağımız sözlük
         one_week_weather = {}
         # satırlar arasında dolaş
+        
+        count = 0
+        
         for row in rows:
+            
+            # !!! Eğer gece 12'den sonra çalıştırırsanız gün bilgisi yanlış olacaktır. 
+            # O günün gece verisi de 7 gün içiersiinde sonraki gün olarak yer alır 
+            
             if count == 7:
                 break
             
+            # gerekli bilgileri al 
+            table_time = row.find("h3", class_="DetailsSummary--daypartName--kbngc").text.split(" ")[1]
             high = row.find("span", class_="DetailsSummary--highTempValue--3PjlX").text.split("°")[0]
             low  = row.find("span", class_="DetailsSummary--lowTempValue--2tesQ").text.split("°")[0]
             
-            print(day.strftime("%Y-%m-%d") , high, low)
-            one_week_weather[day.strftime("%Y-%m-%d")] = [high, low]
+            
+            print(today.strftime("%Y-%m-%d") , high, low)
+            one_week_weather[today.strftime("%Y-%m-%d")] = [high, low]
             count+= 1 
-            day += timedelta(days=1)
+            today += timedelta(days=1)
         
         data[num] = one_week_weather
         

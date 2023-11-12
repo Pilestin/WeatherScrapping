@@ -1,5 +1,3 @@
-import requests
-import bs4
 
 
 # iller listesi https://turzifer.com/web/turkiye-il-listesi/ adresinden alındı.
